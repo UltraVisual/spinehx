@@ -1,7 +1,9 @@
 package spinehx;
-import spinehx.platform.nme.BitmapDataTextureLoader;
-import spinehx.platform.nme.renderers.SkeletonRendererDebug;
-import spinehx.platform.nme.renderers.SkeletonRenderer;
+import openfl.display.FPS;
+import openfl.Assets;
+import spinehx.platform.openfl.BitmapDataTextureLoader;
+import spinehx.platform.openfl.renderers.SkeletonRendererDebug;
+import spinehx.platform.openfl.renderers.SkeletonRenderer;
 import spinehx.atlas.TextureAtlas;
 import flash.display.Sprite;
 import flash.events.Event;
@@ -23,9 +25,10 @@ class AnimationStateTest extends Sprite {
     public function new() {
         super();
 
-        atlas = TextureAtlas.create(nme.Assets.getText("assets/spineboy.atlas"), "assets/", new BitmapDataTextureLoader());
+        atlas = TextureAtlas.create(Assets.getText("assets/spineboy.atlas"), "assets/", new BitmapDataTextureLoader());
         var json = SkeletonJson.create(atlas);
-        var skeletonData:SkeletonData = json.readSkeletonData("spineboy", nme.Assets.getText("assets/spineboy.json"));
+
+        var skeletonData:SkeletonData = json.readSkeletonData("spineboy", Assets.getText("assets/spineboy.json"));
 
         // Define mixing between animations.
         var stateData = new AnimationStateData(skeletonData);
@@ -50,7 +53,7 @@ class AnimationStateTest extends Sprite {
         debugRenderer = new SkeletonRendererDebug(skeleton);
         addChild(renderer);
         addChild(debugRenderer);
-        addChild(new nme.display.FPS());
+        addChild(new FPS());
 
         addEventListener(Event.ENTER_FRAME, render);
         addEventListener(Event.ADDED_TO_STAGE, added);

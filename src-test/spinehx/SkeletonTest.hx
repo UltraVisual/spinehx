@@ -25,9 +25,11 @@
 
 package spinehx;
 
-import spinehx.platform.nme.BitmapDataTextureLoader;
-import spinehx.platform.nme.renderers.SkeletonRendererDebug;
-import spinehx.platform.nme.renderers.SkeletonRenderer;
+import openfl.display.FPS;
+import openfl.Assets;
+import spinehx.platform.openfl.BitmapDataTextureLoader;
+import spinehx.platform.openfl.renderers.SkeletonRendererDebug;
+import spinehx.platform.openfl.renderers.SkeletonRenderer;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
@@ -48,12 +50,11 @@ class SkeletonTest extends Sprite {
         super();
         name = "goblins"; // "spineboy";
 
-        var atlas:TextureAtlas = TextureAtlas.create(nme.Assets.getText("assets/" + name + ".atlas"), "assets/", new BitmapDataTextureLoader());
-
+        var atlas:TextureAtlas = TextureAtlas.create(Assets.getText("assets/" + name + ".atlas"), "assets/", new BitmapDataTextureLoader());
 		if (true) {
             var json = SkeletonJson.create(atlas);
             // json.setScale(2);
-            skeletonData = json.readSkeletonData(name, nme.Assets.getText("assets/" + name + ".json"));
+            skeletonData = json.readSkeletonData(name, Assets.getText("assets/" + name + ".json"));
 		} /*else {
 			SkeletonBinary binary = new SkeletonBinary(atlas);
 			// binary.setScale(2);
@@ -80,7 +81,7 @@ class SkeletonTest extends Sprite {
         debugRenderer.y = 350;
         addChild(renderer);
         addChild(debugRenderer);
-        addChild(new nme.display.FPS());
+        addChild(new FPS());
 
         addEventListener(Event.ENTER_FRAME, render);
         addEventListener(Event.ADDED_TO_STAGE, added);  renderer.draw();
